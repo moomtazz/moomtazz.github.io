@@ -1,0 +1,61 @@
+.capy-demo { position: relative; overflow: hidden; background: #0a171b; border: 1px solid var(--border); border-radius: 4px; }
+#media.capy-scene .shade { background: linear-gradient(270deg, rgba(0,0,0,.72), rgba(0,0,0,.62) 24%, transparent 43%), linear-gradient(180deg, rgba(0,0,0,.2), transparent 35%, transparent 70%, rgba(0,0,0,.3)); }
+.capy-demo canvas { display: block; width: 100%; height: clamp(360px, 45vw, 600px); touch-action: none; outline-offset: -4px; }
+.capy-demo canvas:focus-visible { outline: 2px solid #8ce5bf; }
+.capy-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 16px 20px; border-bottom: 1px solid #ffffff20; }
+.capy-toolbar button { padding: 9px 14px; border: 1px solid #ffffff40; border-radius: 24px; background: transparent; color: #eaf9f1; font: 14px var(--sans); }
+.capy-toolbar button:hover, .capy-toolbar button[aria-pressed="true"] { background: #b0ebc7; border-color: #b0ebc7; color: #102a22; }
+.capy-toolbar button:focus-visible, .capy-toolbar input:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.capy-toolbar .capy-pause { margin-left: auto; }
+.capy-toolbar label { color: #ecf5f1; display: flex; align-items: center; gap: 12px; font-size: 14px; }
+.capy-toolbar input { accent-color: #b0ebc7; width: 140px; }
+.capy-readout { padding: 17px 20px; border-top: 1px solid #ffffff20; color: #e1eee8; display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 14px; min-height: 78px; }
+.capy-readout strong { font: 14px var(--mono); letter-spacing: .05em; text-transform: uppercase; color: #b0ebc7; }
+.capy-readout p { margin: 0; max-width: 70ch; font-size: 15px; line-height: 1.55; }
+.capy-caption { margin: 12px 0 0; color: var(--muted); font-size:14px; line-height: 1.6; }
+.capy-talk .duo-sp { image-rendering: auto; width: 92px; height: 92px; object-fit: contain; }
+.capy-talk .duo-av { min-width: 100px; }
+@media (max-width: 600px) { .capy-demo canvas { height: 350px; } .capy-toolbar { padding: 12px; gap: 7px; } .capy-toolbar button { font-size:14px; padding: 8px 11px; } .capy-readout { grid-template-columns: 1fr; gap: 7px; padding: 14px; }   }
+.capy-demo-section .sec-head,.capy-roster .sec-head { margin-bottom:24px; }
+.capy-demo-section .sec-head p,.capy-roster .sec-head p { font-size:16px; line-height:1.45; }
+.capy-demo canvas { height:300px; }
+.capy-toolbar { padding:10px 16px; gap:6px; font-family:var(--sans); }
+.capy-toolbar button { padding:7px 12px; }
+.capy-toolbar button:hover,.capy-toolbar button[aria-pressed="true"] { background:#8fb9a8; border-color:#8fb9a8; }
+.capy-toolbar input { accent-color:#8fb9a8; }
+.capy-readout { min-height:64px; padding:10px 16px; gap:12px; }
+.capy-readout strong { font:500 14px var(--sans); text-transform:none; letter-spacing:normal; color:white; background:rgba(0,0,0,.35); border-radius:24px; padding:7px 10px; }
+.capy-readout strong::before { content:''; display:inline-block; width:6px; height:6px; margin-right:7px; border-radius:50%; background:var(--dot,#8fb9a8); }
+.capy-readout p { font:14px/1.4 var(--sans); }
+.capy-caption { margin-top:8px; line-height:1.4; }
+.capy-roster { height:600vh; }
+.capy-pin { position:sticky; top:72px; height:calc(100vh - 88px); padding-top:8px; }
+.capy-strip { overflow:hidden; }
+.capy-slides { display:flex; width:100%; }
+.capy-slide { flex:0 0 100%; min-width:0; display:grid; grid-template-columns:1.5fr 1fr; align-items:center; gap:32px; }
+.capy-slide canvas { width:100%; height:350px; display:block; border-radius:6px; }
+.capy-slide h4 { font:400 42px var(--serif); margin:0 0 12px; }
+.capy-slide strong { font:600 16px var(--sans); }
+.capy-slide p { font:16px/1.5 var(--sans); max-width:38ch; }
+.capy-progress { height:2px; background:var(--border); margin-top:20px; }
+.capy-progress i { display:block; height:100%; background:currentColor; transform:scaleX(0); transform-origin:left; }
+@media(max-width:600px){
+ .capy-demo-section .sec-head h3,.capy-roster .sec-head h3 { font-size:30px; }
+ .capy-demo-section .sec-head,.capy-roster .sec-head { row-gap:10px; margin-bottom:18px; }
+ .capy-demo canvas { height:260px; }
+ .capy-toolbar { padding:9px; }
+ .capy-toolbar label { gap:6px; }
+ .capy-toolbar input { width:100px; }
+ .capy-readout { grid-template-columns:1fr; padding:10px; gap:8px; }
+ .capy-readout strong { justify-self:start; }
+ .capy-slide { grid-template-columns:1fr; gap:16px; }
+ .capy-slide canvas { height:240px; }
+ .capy-slide h4 { font-size:32px; margin-bottom:7px; }
+ .capy-slide p { font-size:14px; margin:8px 0; }
+}
+@media(prefers-reduced-motion:reduce){
+ .capy-roster { height:auto; }
+ .capy-pin { position:static; height:auto; }
+ .capy-slides { display:grid; gap:28px; transform:none!important; }
+ .capy-progress { display:none; }
+}

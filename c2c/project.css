@@ -1,0 +1,51 @@
+/* Chat to Core blocks */
+.ctc-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 330px)); justify-content: center; gap: clamp(16px, 2.4vw, 40px); align-items: start; }
+.ctc-cards figure { margin: 0; display: grid; gap: 14px; opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform 1s var(--ease); transition-delay: calc(var(--i) * 110ms); }
+.ctc-cards.in figure { opacity: 1; transform: none; }
+.ctc-cards img { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 18px 40px rgba(0,0,0,.18); }
+.ctc-cards figcaption { display: grid; gap: 6px; }
+.ctc-cards figcaption b { font-size: 18px; font-weight: 600; }
+.ctc-cards figcaption span { font-size: 16px; line-height: 1.5; opacity: .9; }
+.ctc-note { margin: 22px 0 0; font-size: 15px; opacity: .8; }
+.ctc-plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ctc-plans > div { padding: 26px 24px 28px; border-radius: 6px; background: rgb(var(--on, 255 255 255) / .06); display: grid; gap: 10px; align-content: start; }
+.ctc-plans .pl-n { font-size: 16px; font-weight: 600; color: var(--hx0, var(--hx)); }
+.ctc-plans b { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 2.8vw, 44px); line-height: 1.05; }
+.ctc-plans p { margin: 0; font-size: 17px; line-height: 1.5; opacity: .9; }
+
+/* the ledger */
+.ctc-ledger { border-top: 2px solid rgb(var(--on, 255 255 255) / .85); font-size: 17px; }
+.lg-h, .lg-r { display: grid; grid-template-columns: 104px 150px minmax(0, 1fr) 130px 130px; column-gap: 20px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.lg-h { font-size: 14px; font-weight: 600; color: rgb(var(--on, 255 255 255) / .7); }
+.lg-h span:last-child, .lg-r b { text-align: right; }
+.lg-t, .lg-c { color: rgb(var(--on, 255 255 255) / .7); font-variant-numeric: tabular-nums; }
+.lg-s { display: inline-flex; align-items: center; gap: 8px; color: rgb(var(--on, 255 255 255) / .85); }
+.lg-s svg { width: 20px; height: 20px; flex: none; }
+.lg-s path { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.lg-s em { font-style: normal; font-size: 15px; }
+.lg-r b, .lg-tot b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.lg-r b.in, .lg-tot b.in { color: #46d6a6; }
+.lg-r b.out, .lg-tot b.out { color: #ff8b7b; }
+.lg-tot { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px 36px; padding: 16px 0 0; font-size: 16px; color: rgb(var(--on, 255 255 255) / .75); }
+.lg-tot b { margin-left: 8px; color: rgb(var(--on, 255 255 255)); font-size: 18px; }
+.ctc-ledger .lg-r, .ctc-ledger .lg-tot { opacity: 0; transform: translateY(10px); transition: opacity .5s var(--ease), transform .6s var(--ease); transition-delay: calc(var(--i) * 240ms + .2s); }
+.ctc-ledger.in .lg-r, .ctc-ledger.in .lg-tot { opacity: 1; transform: none; }
+
+@media (max-width: 1100px) { .ctc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .ctc-cards, .ctc-plans { grid-template-columns: 1fr; }
+  .lg-h { display: none; }
+  .lg-r { grid-template-columns: 22px minmax(0, 1fr) auto; column-gap: 12px; }
+  .lg-t, .lg-c, .lg-s em { display: none; }
+  .lg-tot { justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) { .ctc-ledger .lg-r, .ctc-ledger .lg-tot { opacity: 1; transform: none; transition: none; } }
+
+/* QA: retain the entire screenshot, with captions outside the phone frame. */
+@media(min-width:861px){
+ .ctc-cards { grid-template-columns:repeat(3,minmax(0,290px)); gap:28px; }
+ .ctc-cards img { height:300px; object-fit:contain; box-shadow:none; }
+ .ctc-cards figure { gap:10px; }
+ .lg-h,.lg-r { padding-block:9px; }
+}
+@media(max-width:860px){.ctc-cards img { max-height:540px; object-fit:contain; }.lg-r { font-size:14px; }}

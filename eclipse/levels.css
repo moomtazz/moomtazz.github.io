@@ -1,0 +1,19 @@
+.er-level-section .sec-head { margin-bottom:24px; }
+.er-level-section .sec-head p { font-size:16px; line-height:1.45; }
+.er-levels { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.er-levels figure { margin:0; min-width:0; }
+.er-levels h4 { font:600 20px var(--sans); margin:0 0 6px; }
+.er-levels p { font:15px/1.4 var(--sans); margin:0 0 16px; min-height:42px; }
+.er-levels canvas { display:block; width:100%; aspect-ratio:30/17; border-radius:4px; image-rendering:pixelated; }
+@media(max-width:600px){
+ .er-levels { grid-template-columns:1fr; gap:12px; }
+ .er-level-section .sec-head { row-gap:8px; margin-bottom:14px; }
+ .er-level-section .sec-head h3 { font-size:28px; }
+ .er-level-section .sec-head p { font-size:14px; }
+ .er-levels h4 { font-size:16px; margin:0; }
+ .er-levels p { font-size:14px; margin:2px 0 6px; min-height:0; }
+ .er-levels canvas { width: min(100%,270px); margin-inline:auto; }
+}
+/* These compact sections already carry their own heading spacing. */
+.er-level-section { padding-top:24px!important; padding-bottom:0!important; }
+@media(max-width:600px){ .er-levels canvas { width:min(100%,240px); } }

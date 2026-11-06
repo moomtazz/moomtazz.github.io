@@ -7,6 +7,10 @@
 .wall-row:nth-child(2) .wall-track { animation-duration: 120s; }
 .wall-row:nth-child(3) .wall-track { animation-duration: 112s; }
 .wall img { display: block; flex: none; height: 100%; width: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; filter: saturate(.92) brightness(.94); }
+/* Pictures fade in once they arrive, so a slow connection shows the page colour, not black boxes */
+.wall img, .clip img { opacity: 0; transition: opacity .7s var(--ease), filter .5s; }
+.wall img.ok, .clip img.ok { opacity: 1; }
+.clip video { background: #14143a center / cover no-repeat; }
 .wall::before, .wall::after { content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none; }
 .wall::before { -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); --m: linear-gradient(90deg, #000, transparent 20%), linear-gradient(270deg, #000, transparent 14%), linear-gradient(180deg, #000, transparent 24%), linear-gradient(0deg, #000, transparent 24%); -webkit-mask-image: var(--m); mask-image: var(--m); }
 .wall::after { background: linear-gradient(270deg, rgba(var(--ink), .8), rgba(var(--ink), 0) 12%), linear-gradient(180deg, rgba(var(--ink), .86), rgba(var(--ink), 0) 20%), linear-gradient(0deg, rgba(var(--ink), .86), rgba(var(--ink), 0) 20%); }

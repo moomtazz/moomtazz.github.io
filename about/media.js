@@ -50,6 +50,11 @@
     }
   }
 
+  document.querySelectorAll('.wall img, .clip img').forEach(i => {
+    const ok = () => i.classList.add('ok');
+    if (i.complete && i.naturalWidth) ok(); else { i.addEventListener('load', ok); i.addEventListener('error', ok); }
+  });
+
   // Row clips only run while they are near the screen. The last moment is skipped so the name bar never slides out.
   const clips = Array.from(document.querySelectorAll('.clip video'));
   clips.forEach(v => {

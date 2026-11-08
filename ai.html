@@ -160,34 +160,6 @@ body.menu-open #menu { opacity: 1; pointer-events: auto; transition: opacity .6s
   .m-left { width: auto; right: max(24px, env(safe-area-inset-right, 0px)); }
 }
 
-
-/* The menu sections live on the page now: scroll past the hero to reach them */
-body { overflow-x: hidden; overflow-y: auto; }
-body.menu-open, body:has(#case.open), body:has(.sheet.open) { overflow: hidden; }
-#more { position: relative; z-index: 1; margin-top: 100svh; background: #000; color: #fff; }
-.sheet.flow { display: block; position: relative; inset: auto; z-index: auto; overflow: visible; clip-path: none; visibility: visible; transition: none; }
-.sheet.flow .inner { opacity: 1; transform: none; transition: none; }
-.sheet.flow .sheet-bar { display: none; }
-.sheet.flow .sheet-in { width: auto; padding-top: 120px; padding-bottom: 24px; }
-#contactSheet .sheet-in { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
-body.below #ui .hero-only { opacity: 0; pointer-events: none; }
-#ui .bar::before { content: ""; position: absolute; z-index: -1; inset: 0 0 -24px; background: linear-gradient(180deg, #000 45%, rgba(0,0,0,0)); opacity: 0; transition: opacity .5s; pointer-events: none; }
-body.below #ui .bar::before { opacity: 1; }
-body.menu-open #ui .bar::before { opacity: 0; }
-.rows .r.has-ph h3 { grid-column: 2; grid-row: 1; }
-.rows .r.has-ph .meta { grid-row: 2; }
-.rows .r .rph { grid-column: 2; grid-row: 3; width: 96px; aspect-ratio: 4 / 5; height: auto; object-fit: cover; border-radius: 6px; }
-.early-l { display: block; margin: 72px 0 12px; }
-.rows.early .r { padding-block: 16px; }
-.rows.early .r h3 { font-size: clamp(20px, 1.9vw, 28px); }
-.rows.early .r .meta { font-size: 16px; }
-.rows.early .r .meta b { font-size: 20px; }
-@media (min-width: 900px) {
-  #writingSheet .rows .r { grid-template-columns: 72px minmax(0, 7fr) minmax(0, 4fr) 112px; }
-  .rows .r .rph { grid-column: 4; grid-row: 1; width: 112px; align-self: center; }
-  .rows .r.has-ph .meta { grid-row: 1; }
-}
-
 /* Sheets */
 .sheet {
   position: fixed; inset: 0; z-index: 8; background: #000; color: #fff; overflow-y: auto; overscroll-behavior: contain;
@@ -1815,8 +1787,7 @@ kbd.w { min-width: 70px; }
   <h2 class="big-h" id="workH">All work</h2><ul class="rows" id="workRows"></ul>
 </div></div>
 
-<main id="more">
-<div class="sheet flow" id="writingSheet" aria-labelledby="wrH"><div class="sheet-in inner">
+<div class="sheet" id="writingSheet" role="dialog" aria-modal="true" aria-labelledby="wrH"><div class="sheet-in inner">
   <div class="sheet-bar"><button class="close" type="button" data-close>Close ×</button><span class="word">Jylan Mumtaza</span><span class="crumb">Research</span></div>
   <h2 class="big-h" id="wrH">Research <i>and writing</i></h2>
   <ul class="rows">
@@ -1824,22 +1795,14 @@ kbd.w { min-width: 70px; }
     <li><div class="r"><span class="label">2026</span><h3>Constrained Reinforcement Learning Multifase untuk Pencegahan Stunting</h3><div class="meta"><b>Top 10, ranked 6th nationally</b>BRINathon, IRIFair, BRIN</div></div></li>
     <li><div class="r"><span class="label">2026</span><h3>KardiaScan: Triase Dini Penyakit Jantung Struktural dari Foto EKG Cetak</h3><div class="meta"><b>Finalist</b>AIdeaNation, BRIN</div></div></li>
     <li><div class="r"><span class="label">2026</span><h3>Insidensi Pajak dan Tax Gap Perilaku pada PPh Final Marketplace</h3><div class="meta"><b>Top 30 finalist</b>Call for Paper, Ministry of Finance</div></div></li>
-    <li><div class="r has-ph"><span class="label">2025</span><img class="rph" src="research/kurasi.webp" alt="Jylan holding the Ruang KURasi 2025 first place certificate" width="480" height="600" decoding="async"><h3>Analisis Sistem Terintegrasi Berbasis Blockchain dan AI untuk Optimalisasi Pembiayaan UMKM</h3><div class="meta"><b>1st place</b>Ruang KURasi, KUR The Next, Coordinating Ministry for Economic Affairs<a class="proof" href="https://www.instagram.com/p/DX-l7SjgbAm/" target="_blank" rel="noopener">ITS announcement &#8599;</a></div></div></li>
+    <li><div class="r"><span class="label">2025</span><h3>Analisis Sistem Terintegrasi Berbasis Blockchain dan AI untuk Optimalisasi Pembiayaan UMKM</h3><div class="meta"><b>1st place</b>Ruang KURasi, KUR The Next, Coordinating Ministry for Economic Affairs<a class="proof" href="https://www.instagram.com/p/DX-l7SjgbAm/" target="_blank" rel="noopener">ITS announcement &#8599;</a></div></div></li>
     <li><div class="r"><span class="label">2025</span><h3>Reformasi Regulasi Berbasis Data Mining Guna Menguatkan Kepastian Investasi</h3><div class="meta"><b>Best Innovation Award</b>2045 Institute</div></div></li>
     <li><div class="r"><span class="label">2025</span><h3>Digitalisasi Keuangan Berbasis Data Mining untuk Pembangunan Regional di Pulau Jawa</h3><div class="meta"><b>Best Writing Award</b>2045 Institute</div></div></li>
     <li><div class="r"><span class="label">2024</span><h3>Rhodobacter sphaeroides untuk Menanggulangi Global Boiling Melalui Konsep BPB</h3><div class="meta"><b>2nd place</b>SMENTION national paper competition</div></div></li>
   </ul>
-  <span class="label early-l">Earlier, before university</span>
-  <ul class="rows early">
-    <li><div class="r"><span class="label">2019</span><h3>National Scientific Essay Competition</h3><div class="meta"><b>3rd runner-up</b>LIPI</div></div></li>
-    <li><div class="r"><span class="label">&nbsp;</span><h3>Bubur Supoka and Nugget Nuka</h3><div class="meta">Eggshell porridge against stunting, and a nugget fortified with chicken-bone calcium</div></div></li>
-    <li><div class="r"><span class="label">&nbsp;</span><h3>QWEE: Qur&rsquo;anic Energy</h3><div class="meta">A mosque ornament that generates electricity from the sound of recitation</div></div></li>
-    <li><div class="r"><span class="label">&nbsp;</span><h3>Acalypha siamensis mouthwash</h3><div class="meta">Antibacterial mouthwash from plant trimmings, tested against Streptococcus mutans</div></div></li>
-    <li><div class="r"><span class="label">&nbsp;</span><h3>ISPA outreach</h3><div class="meta">Public education on acute respiratory infection through social media and a game</div></div></li>
-  </ul>
 </div></div>
 
-<div class="sheet flow" id="aboutSheet" aria-labelledby="abH"><div class="sheet-in inner">
+<div class="sheet" id="aboutSheet" role="dialog" aria-modal="true" aria-labelledby="abH"><div class="sheet-in inner">
   <div class="sheet-bar"><button class="close" type="button" data-close>Close ×</button><span class="word">Jylan Mumtaza</span><span class="crumb">About</span></div>
   <h2 class="big-h" id="abH">About</h2>
   <div class="about-grid">
@@ -1867,7 +1830,7 @@ kbd.w { min-width: 70px; }
   </div>
 </div></div>
 
-<div class="sheet flow" id="contactSheet" aria-labelledby="ctH"><div class="sheet-in inner">
+<div class="sheet" id="contactSheet" role="dialog" aria-modal="true" aria-labelledby="ctH"><div class="sheet-in inner">
   <div class="sheet-bar"><button class="close" type="button" data-close>Close ×</button><span class="word">Jylan Mumtaza</span><span class="crumb">Contact</span></div>
   <h2 class="contact-h" id="ctH">How can <i>I help?</i></h2>
   <div class="ways">
@@ -1876,7 +1839,6 @@ kbd.w { min-width: 70px; }
     <a class="way" href="https://github.com/moomtazz" target="_blank" rel="noopener"><span>GitHub<small>moomtazz</small></span><span>↗</span></a>
   </div>
 </div></div>
-</main>
 
 <div class="dot" id="dot" aria-hidden="true"></div>
 
@@ -2274,14 +2236,6 @@ kbd.w { min-width: 70px; }
   // ---------- Sheets ----------
   var openId = null, lastFocus = null;
   function openSheet(id) {
-    var flowEl = document.getElementById(id);
-    if (flowEl.classList.contains('flow')) {
-      if (openId) closeSheet();
-      if (caseOpen) closeCase();
-      if (menuOpen) toggleMenu(false);
-      flowEl.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-      return;
-    }
     if (!openId) lastFocus = document.activeElement;
     if (openId && openId !== id) document.getElementById(openId).classList.remove('open');
     var el = document.getElementById(id); el.scrollTop = 0; el.classList.add('open'); openId = id;
@@ -2292,9 +2246,6 @@ kbd.w { min-width: 70px; }
     if (!openId) return; document.getElementById(openId).classList.remove('open'); openId = null;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
   }
-
-  function onPageScroll() { document.body.classList.toggle('below', scrollY > innerHeight * .2); }
-  addEventListener('scroll', onPageScroll, { passive: true }); onPageScroll();
 
   // ---------- Menu ----------
   var menuOpen = false, menuBtn = document.getElementById('menuBtn'), menuEl = document.getElementById('menu');

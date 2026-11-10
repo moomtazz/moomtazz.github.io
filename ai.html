@@ -3492,38 +3492,38 @@ kbd.w { min-width: 70px; }
         vignette(c, W, H, .6);
       };
     },
-    // The first 1,000 days: the paper-cut mother and child from the BRINathon deck, shown no larger than its real resolution
-    // over a soft wash of its own colours, so it stays sharp on every screen.
-    mpcrl: function (W, H, o) {
-      var art = sceneImg('mpcrl-art'), fg = null, wash = null, spot = null, measured = -9;
-      function build() {
-        var iw = art.naturalWidth, ih = art.naturalHeight, d = Math.max(1, window.devicePixelRatio || 1);
-        var s = Math.min(1.06 / d, W * .74 / iw, H * .9 / ih); s = Math.max(s, Math.min(W * .5 / iw, H * .62 / ih));
-        var w = iw * s, h = ih * s, cw = Math.round(w * d), ch = Math.round(h * d);
-        wash = document.createElement('canvas'); wash.width = 48; wash.height = 27; wash.getContext('2d').drawImage(art, 0, 0, 48, 27);
-        fg = document.createElement('canvas'); fg.width = cw; fg.height = ch; var x = fg.getContext('2d');
-        x.imageSmoothingQuality = 'high'; x.drawImage(art, 0, 0, cw, ch); x.globalCompositeOperation = 'destination-in';
-        var f = Math.round(Math.min(cw, ch) * .14);
-        var gx = x.createLinearGradient(0, 0, cw, 0); gx.addColorStop(0, 'rgba(0,0,0,0)'); gx.addColorStop(f / cw, '#000'); gx.addColorStop(1 - f / cw, '#000'); gx.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gx; x.fillRect(0, 0, cw, ch);
-        var gy = x.createLinearGradient(0, 0, 0, ch); gy.addColorStop(0, 'rgba(0,0,0,0)'); gy.addColorStop(f / ch, '#000'); gy.addColorStop(1 - f / ch, '#000'); gy.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gy; x.fillRect(0, 0, cw, ch);
-        fg._w = w; fg._h = h;
-      }
-      return function (c, t) {
-        if (!fg && art.complete && art.naturalWidth) build();
-        c.fillStyle = '#071433'; c.fillRect(0, 0, W, H);
-        if (!fg) return;
-        c.save(); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = 'high'; c.drawImage(wash, -W * .06, -H * .06, W * 1.12, H * 1.12); c.restore();
-        c.fillStyle = 'rgba(4,10,30,.64)'; c.fillRect(0, 0, W, H);
-        // on a phone, sit in the gap between the title and the project list
-        if (W < 760 && c.canvas.classList.contains('scn') && t - measured > 1.5) {
-          measured = t; var ti = document.getElementById('title'), pl = document.getElementById('pills'), ra = ti && ti.getBoundingClientRect(), rb = pl && pl.getBoundingClientRect();
-          spot = ra && rb && rb.top - ra.bottom > 80 ? [W / 2, (ra.bottom + rb.top) / 2, Math.min(1, (rb.top - ra.bottom - 16) / fg._h)] : null;
-        }
-        var z = (spot ? spot[2] : 1) * (.975 + .025 * (.5 + .5 * Math.sin(t * .12))), w = fg._w * z, h = fg._h * z;
-        var px = spot ? spot[0] : W * o.cx, py = spot ? spot[1] : H / 2 - H * .03;
-        c.drawImage(fg, px - w / 2 + Math.sin(t * .09) * 6, py - h / 2 + Math.cos(t * .11) * 4, w, h);
-      };
-    },
+    // The first 1,000 days: the paper-cut mother and child from the BRINathon deck, shown no larger than its real resolution
+    // over a soft wash of its own colours, so it stays sharp on every screen.
+    mpcrl: function (W, H, o) {
+      var art = sceneImg('mpcrl-art'), fg = null, wash = null, spot = null, measured = -9;
+      function build() {
+        var iw = art.naturalWidth, ih = art.naturalHeight, d = Math.max(1, window.devicePixelRatio || 1);
+        var s = Math.min(1.06 / d, W * .74 / iw, H * .9 / ih); s = Math.max(s, Math.min(W * .5 / iw, H * .62 / ih));
+        var w = iw * s, h = ih * s, cw = Math.round(w * d), ch = Math.round(h * d);
+        wash = document.createElement('canvas'); wash.width = 48; wash.height = 27; wash.getContext('2d').drawImage(art, 0, 0, 48, 27);
+        fg = document.createElement('canvas'); fg.width = cw; fg.height = ch; var x = fg.getContext('2d');
+        x.imageSmoothingQuality = 'high'; x.drawImage(art, 0, 0, cw, ch); x.globalCompositeOperation = 'destination-in';
+        var f = Math.round(Math.min(cw, ch) * .14);
+        var gx = x.createLinearGradient(0, 0, cw, 0); gx.addColorStop(0, 'rgba(0,0,0,0)'); gx.addColorStop(f / cw, '#000'); gx.addColorStop(1 - f / cw, '#000'); gx.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gx; x.fillRect(0, 0, cw, ch);
+        var gy = x.createLinearGradient(0, 0, 0, ch); gy.addColorStop(0, 'rgba(0,0,0,0)'); gy.addColorStop(f / ch, '#000'); gy.addColorStop(1 - f / ch, '#000'); gy.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gy; x.fillRect(0, 0, cw, ch);
+        fg._w = w; fg._h = h;
+      }
+      return function (c, t) {
+        if (!fg && art.complete && art.naturalWidth) build();
+        c.fillStyle = '#071433'; c.fillRect(0, 0, W, H);
+        if (!fg) return;
+        c.save(); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = 'high'; c.drawImage(wash, -W * .06, -H * .06, W * 1.12, H * 1.12); c.restore();
+        c.fillStyle = 'rgba(4,10,30,.64)'; c.fillRect(0, 0, W, H);
+        // on a phone, sit in the gap between the title and the project list
+        if (W < 760 && c.canvas.classList.contains('scn') && t - measured > 1.5) {
+          measured = t; var ti = document.getElementById('title'), pl = document.getElementById('pills'), ra = ti && ti.getBoundingClientRect(), rb = pl && pl.getBoundingClientRect();
+          spot = ra && rb && rb.top - ra.bottom > 80 ? [W / 2, (ra.bottom + rb.top) / 2, Math.min(1, (rb.top - ra.bottom - 16) / fg._h)] : null;
+        }
+        var z = (spot ? spot[2] : 1) * (.975 + .025 * (.5 + .5 * Math.sin(t * .12))), w = fg._w * z, h = fg._h * z;
+        var px = spot ? spot[0] : W * o.cx, py = spot ? spot[1] : H / 2 - H * .03;
+        c.drawImage(fg, px - w / 2 + Math.sin(t * .09) * 6, py - h / 2 + Math.cos(t * .11) * 4, w, h);
+      };
+    },
     // East Java from the project's own data, extruded by poverty rate, with questions rising from the poorest areas.
     mapan: function (W, H, o) {
       var J = window.JATIM; if (!J) return null;

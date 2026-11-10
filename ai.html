@@ -3492,36 +3492,67 @@ kbd.w { min-width: 70px; }
         vignette(c, W, H, .6);
       };
     },
-    // The first 1,000 days: the paper-cut mother and child from the BRINathon deck, shown no larger than its real resolution
-    // over a soft wash of its own colours, so it stays sharp on every screen.
+    // The first 1,000 days: the paper-cut mother and child from the BRINathon deck, exactly as drawn, at full screen height.
+    // The art is cut along one of its own paper edges; past that edge, new paper waves fill the screen and drift slowly.
     mpcrl: function (W, H, o) {
-      var art = sceneImg('mpcrl-art'), fg = null, wash = null, spot = null, measured = -9;
-      function build() {
-        var iw = art.naturalWidth, ih = art.naturalHeight, d = Math.max(1, window.devicePixelRatio || 1);
-        var s = Math.min(1.06 / d, W * .74 / iw, H * .9 / ih); s = Math.max(s, Math.min(W * .5 / iw, H * .62 / ih));
-        var w = iw * s, h = ih * s, cw = Math.round(w * d), ch = Math.round(h * d);
-        wash = document.createElement('canvas'); wash.width = 48; wash.height = 27; wash.getContext('2d').drawImage(art, 0, 0, 48, 27);
+      var art = sceneImg('mpcrl-art'), IW = 1239, IH = 692, MX = 615, fg = null, fgKey = '';
+      var SEAM = [439.4,440.1,441.1,443.4,444.9,445.1,446.6,449.1,449.7,447.1,443.9,441.3,438.1,435.3,432.1,429.0,426.3,423.4,420.7,417.9,415.0,412.6,410.3,407.6,404.6,402.0,399.4,397.1,394.9,392.3,389.3,386.6,384.1,381.9,379.4,377.1,375.0,372.4,369.9,367.4,365.0,362.6,360.1,357.9,355.3,352.7,350.0,347.1,344.9,342.4,340.0,337.6,335.1,332.9,330.4,328.0,325.6,323.3,321.3,319.1,317.0,315.0,313.0,311.1,309.4,308.0,306.3,304.6,303.0,301.6,300.1,298.7,297.6,296.4,295.4,294.4,293.4,292.4,291.6,290.7,290.0,289.6,289.0,288.7,288.0,287.0,287.0,287.1,287.1,286.3,286.0,286.0,286.1,286.7,287.6,287.4,287.7,288.6,288.7,289.4,289.9,290.7,291.9,292.4,293.1,293.9,294.9,295.9,297.6,298.7,299.7,301.4,302.6,304.1,305.7,307.3,309.0,311.0,313.0,315.0,317.0,319.1,321.9,324.4,326.6,329.0,331.7,334.6,337.4,340.3,343.3,347.0,350.4,353.9,356.7,360.0,363.6,367.0,370.7,373.6,377.0,381.0,385.0,389.0,393.0,397.0,401.0,405.0,409.0,413.0,417.0,421.0,425.0,429.0,433.0,437.0,441.0,445.0,449.0,453.0,457.0,461.0,465.0,469.0,473.0,476.9,480.0,482.7,485.1,487.4,489.6,491.0,492.0,492.1];
+      var C0 = [[102, 151, 239], [135, 175, 242], [158, 193, 248], [163, 197, 247], [135, 177, 243]];
+      var LB = [], RB = [];
+      var LW = [1, 1.35, 1.1, 1.6, 1.3]; for (var k = 0; k < 5; k++) LB.push({ ph: Math.random() * 6.3, ph2: Math.random() * 6.3, w: (.16 + .05 * (k % 3)) * (k % 2 ? 1 : -1) });
+      for (k = 0; k < 6; k++) RB.push({ ph: Math.random() * 6.3, ph2: Math.random() * 6.3, w: (.14 + .05 * (k % 3)) * (k % 2 ? -1 : 1) });
+      function seamAt(ya) { var f = Math.max(0, Math.min(IH - 1, ya)) / 4, i = Math.min(SEAM.length - 2, Math.floor(f)), r = f - i; return SEAM[i] + (SEAM[i + 1] - SEAM[i]) * r; }
+      function mix(a, b, t) { return 'rgb(' + Math.round(a[0] + (b[0] - a[0]) * t) + ',' + Math.round(a[1] + (b[1] - a[1]) * t) + ',' + Math.round(a[2] + (b[2] - a[2]) * t) + ')'; }
+      function build(s) {
+        var d = Math.min(window.devicePixelRatio || 1, 2), cw = Math.round(IW * s * d), ch = Math.round(IH * s * d), k2 = s * d;
         fg = document.createElement('canvas'); fg.width = cw; fg.height = ch; var x = fg.getContext('2d');
         x.imageSmoothingQuality = 'high'; x.drawImage(art, 0, 0, cw, ch); x.globalCompositeOperation = 'destination-in';
-        var f = Math.round(Math.min(cw, ch) * .14);
-        var gx = x.createLinearGradient(0, 0, cw, 0); gx.addColorStop(0, 'rgba(0,0,0,0)'); gx.addColorStop(f / cw, '#000'); gx.addColorStop(1 - f / cw, '#000'); gx.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gx; x.fillRect(0, 0, cw, ch);
-        var gy = x.createLinearGradient(0, 0, 0, ch); gy.addColorStop(0, 'rgba(0,0,0,0)'); gy.addColorStop(f / ch, '#000'); gy.addColorStop(1 - f / ch, '#000'); gy.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = gy; x.fillRect(0, 0, cw, ch);
-        fg._w = w; fg._h = h;
+        // keep everything right of the paper edge, and let the far right fade into the new dark waves
+        x.beginPath(); x.moveTo(seamAt(0) * k2, 0);
+        for (var ya = 4; ya <= IH; ya += 4) x.lineTo(seamAt(ya) * k2, ya * k2);
+        x.lineTo(cw, ch); x.lineTo(cw, 0); x.closePath();
+        var f = 70 * k2, gx = x.createLinearGradient(0, 0, cw, 0); gx.addColorStop(0, '#000'); gx.addColorStop(1 - f / cw, '#000'); gx.addColorStop(1, 'rgba(0,0,0,0)');
+        x.fillStyle = '#000'; x.fill(); x.fillStyle = gx; x.fillRect(0, 0, cw, ch);
+        fg._w = IW * s; fg._h = IH * s;
       }
+      // one wavy paper edge, as x for every screen row
+      function edge(base, k, B, t, amp) {
+        var pts = [];
+        for (var y = -20; y <= H + 20; y += 12) pts.push([base(y) + amp * Math.sin(y / H * 3.1 + B.ph + t * B.w) + amp * .45 * Math.sin(y / H * 5.3 + B.ph2 - t * B.w * .7), y]);
+        return pts;
+      }
+      function fillSide(c, pts, toX) { c.beginPath(); c.moveTo(toX, -20); pts.forEach(function (p) { c.lineTo(p[0], p[1]); }); c.lineTo(toX, H + 20); c.closePath(); c.fill(); }
       return function (c, t) {
-        if (!fg && art.complete && art.naturalWidth) build();
-        c.fillStyle = '#071433'; c.fillRect(0, 0, W, H);
-        if (!fg) return;
-        c.save(); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = 'high'; c.drawImage(wash, -W * .06, -H * .06, W * 1.12, H * 1.12); c.restore();
-        c.fillStyle = 'rgba(4,10,30,.64)'; c.fillRect(0, 0, W, H);
-        // on a phone, sit in the gap between the title and the project list
-        if (W < 760 && c.canvas.classList.contains('scn') && t - measured > 1.5) {
-          measured = t; var ti = document.getElementById('title'), pl = document.getElementById('pills'), ra = ti && ti.getBoundingClientRect(), rb = pl && pl.getBoundingClientRect();
-          spot = ra && rb && rb.top - ra.bottom > 80 ? [W / 2, (ra.bottom + rb.top) / 2, Math.min(1, (rb.top - ra.bottom - 16) / fg._h)] : null;
+        c.fillStyle = '#0a1c4c'; c.fillRect(0, 0, W, H);
+        if (!art.complete || !art.naturalWidth) return;
+        var s = H / IH, ax = W * o.cx - MX * s, ay = 0, key = s.toFixed(4);
+        if (fgKey !== key) { build(s); fgKey = key; }
+        var sx = function (y) { return ax + seamAt((y - ay) / s) * s; }, right = ax + IW * s - 40 * s;
+        // the light paper on the left: the band that touches the art first, then lighter ones, each casting a soft shadow to the right
+        var g = c.createLinearGradient(0, ay, 0, ay + IH * s); C0.forEach(function (col, i) { g.addColorStop(i / (C0.length - 1), 'rgb(' + col.join(',') + ')'); });
+        c.fillStyle = g; fillSide(c, edge(sx, 0, { ph: 0, ph2: 0, w: 0 }, 0, 0), -20);
+        var minS = Math.min(sx(0), sx(H * .5), sx(H)), sp = Math.max(80, (minS + 60) / 4.6), amp = Math.min(60, H * .07), acc = 0;
+        c.save(); c.shadowColor = 'rgba(16,40,120,.38)'; c.shadowBlur = Math.max(12, H * .028); c.shadowOffsetX = Math.max(4, H * .009);
+        for (var k = 0; k < LB.length; k++) {
+          acc += sp * LW[k]; var off = acc, pts = edge(function (y) { return sx(y) - off; }, k, LB[k], t, amp * (.55 + k * .25));
+          if (Math.max.apply(null, pts.map(function (p) { return p[0]; })) < -20) break;
+          var tt = (k + 1) / LB.length, grad = c.createLinearGradient(0, 0, 0, H);
+          grad.addColorStop(0, mix([118, 162, 240], [196, 221, 252], tt)); grad.addColorStop(.5, mix([160, 194, 248], [205, 228, 254], tt)); grad.addColorStop(1, mix([132, 174, 243], [194, 220, 252], tt));
+          c.fillStyle = grad; fillSide(c, pts, -40);
         }
-        var z = (spot ? spot[2] : 1) * (.975 + .025 * (.5 + .5 * Math.sin(t * .12))), w = fg._w * z, h = fg._h * z;
-        var px = spot ? spot[0] : W * o.cx, py = spot ? spot[1] : H / 2 - H * .03;
-        c.drawImage(fg, px - w / 2 + Math.sin(t * .09) * 6, py - h / 2 + Math.cos(t * .11) * 4, w, h);
+        c.restore();
+        // the dark paper on the right, past the edge of the art
+        if (right < W + 20) {
+          var sp2 = Math.max(60, (W - right + 60) / RB.length);
+          c.save(); c.shadowColor = 'rgba(0,4,20,.45)'; c.shadowBlur = Math.max(12, H * .026); c.shadowOffsetX = -Math.max(4, H * .008);
+          for (k = 0; k < RB.length; k++) {
+            var off2 = k * sp2, pts2 = edge(function () { return right + off2; }, k, RB[k], t, amp * (.6 + k * .1));
+            c.fillStyle = mix([12, 34, 86], [6, 18, 54], k / RB.length); fillSide(c, pts2, W + 40);
+            c.strokeStyle = 'rgba(70,100,180,.18)'; c.lineWidth = 1; c.stroke();
+          }
+          c.restore();
+        }
+        c.drawImage(fg, ax, ay, fg._w, fg._h);
       };
     },
     // East Java from the project's own data, extruded by poverty rate, with questions rising from the poorest areas.
